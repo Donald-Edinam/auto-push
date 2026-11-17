@@ -14,15 +14,17 @@ npm start
 
 | Variable | Description |
 |---|---|
-| `RECIPIENT_PHONE` | Number to text, international format (e.g. `233XXXXXXXXX`) |
-| `AGOOSMS_API_URL` | AgooSMS send endpoint (from your AgooSMS docs/dashboard) |
-| `AGOOSMS_API_KEY` | Your AgooSMS API key |
-| `AGOOSMS_SENDER_ID` | Approved sender ID |
+| `RECIPIENT_PHONE` | Number to text, E.164 format (e.g. `+233201234567`) |
+| `AGOOSMS_API_KEY` | Your AgooSMS API key (`agoo_live_...`) from https://developer.agoosms.com |
+| `AGOOSMS_SENDER_ID` | Optional approved sender ID; blank uses AgooSMS's default |
+| `AGOOSMS_API_URL` | Optional; defaults to `https://api.agoosms.com/v1/sms/send` |
 | `CRON_SCHEDULE` | Defaults to `*/5 * * * *` (every 5 minutes) |
 | `CRON_TIMEZONE` | Optional, e.g. `Africa/Accra` |
 | `DRY_RUN` | `true` logs messages instead of sending |
 
-> If AgooSMS uses different field names or auth (e.g. `api_key` in the body instead of a Bearer header), edit `src/agooSms.js`; it's the only file that talks to the provider.
+The AgooSMS integration lives in `src/agooSms.js`. It follows the
+[AgooSMS API docs](https://developer.agoosms.com/dashboard/docs): `POST /v1/sms/send` with an
+`X-API-Key` header and a JSON body of `{ to, message, senderId }`.
 
 ## Messages
 

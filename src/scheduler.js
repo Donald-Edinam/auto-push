@@ -30,7 +30,10 @@ async function sendRandomMessage() {
     state.lastResult = result;
     state.lastError = null;
     state.sentCount += 1;
-    console.log(`[${state.lastRunAt}] Sent message #${msg.id} to ${to}`);
+    const info = result && result.messageId
+      ? ` (id ${result.messageId}, status ${result.status}, cost ${result.cost}, balance ${result.balance})`
+      : '';
+    console.log(`[${state.lastRunAt}] Sent message #${msg.id} to ${to}${info}`);
     return result;
   } catch (err) {
     state.lastError = err.message;
